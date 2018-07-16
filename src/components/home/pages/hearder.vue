@@ -5,7 +5,7 @@
 		</div>
 		<div class="inputcontent"><span class="iconfont">&#xe632;</span>请输入城市、景点</div>
 		<router-link to="/city">
-			<div class="right">{{this.city}}<span class="iconfont arrow-icon"> &#xe64a;</span></div>
+			<div class="right">{{this.city}}城市<span class="iconfont arrow-icon"> &#xe64a;</span></div>
 		</router-link>
 	</div>
 </template>
@@ -58,6 +58,7 @@
 			width: 1.24rem;
 			float: right;
 			text-align: center;
+			color: #fff;
 			.arrow-icon {
 				margin-left: -0.04rem;
 				font-size: 0.24rem;

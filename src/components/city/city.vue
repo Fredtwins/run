@@ -1,11 +1,16 @@
 <template>
 	<div class="city">
-		
+		<Hearder></Hearder>
 	</div>
 </template>
 
 <script>
+import Hearder from './components/Hearder';
 	export default {
+		components: {
+			Hearder
+		},
+		name: 'City',
 		data() {
 			return {
 				
@@ -21,5 +26,7 @@
 </script>
 
 <style lang="scss" scoped>
+.city {
 
+}
 </style>

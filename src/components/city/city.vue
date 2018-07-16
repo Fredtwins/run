@@ -1,17 +1,20 @@
 <template>
 	<div class="city">
 		<Hearder></Hearder>
-		<Search></Search>	
+		<Search></Search>
+		<City-list></City-list>		
 	</div>
 </template>
 
 <script>
 import Hearder from './components/Hearder';
 import Search from './components/Search';
+import CityList from './components/city-list';
 	export default {
 		components: {
 			Hearder,
-			Search
+			Search,
+			CityList
 		},
 		name: 'City',
 		data() {

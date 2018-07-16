@@ -1,14 +1,17 @@
 <template>
 	<div class="city">
 		<Hearder></Hearder>
+		<Search></Search>	
 	</div>
 </template>
 
 <script>
 import Hearder from './components/Hearder';
+import Search from './components/Search';
 	export default {
 		components: {
-			Hearder
+			Hearder,
+			Search
 		},
 		name: 'City',
 		data() {

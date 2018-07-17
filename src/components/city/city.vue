@@ -2,7 +2,8 @@
 	<div class="city">
 		<Hearder></Hearder>
 		<Search></Search>
-		<City-list></City-list>		
+		<City-list></City-list>	
+		<Cityalphabet></Cityalphabet>	
 	</div>
 </template>
 
@@ -10,11 +11,13 @@
 import Hearder from './components/Hearder';
 import Search from './components/Search';
 import CityList from './components/city-list';
+import Cityalphabet from './components/Alphabet';
 	export default {
 		components: {
 			Hearder,
 			Search,
-			CityList
+			CityList,
+			Cityalphabet
 		},
 		name: 'City',
 		data() {

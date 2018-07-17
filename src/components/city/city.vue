@@ -2,8 +2,15 @@
 	<div class="city">
 		<Hearder></Hearder>
 		<Search></Search>
-		<City-list :cities="cities" :hotcities="hotCities"></City-list>	
-		<Cityalphabet :cities="cities"></Cityalphabet>	
+		<City-list 
+		:cities="cities" 
+		:hotcities="hotCities"
+		:letter="letter"
+		></City-list>	
+		<Cityalphabet 
+		:cities="cities"
+		@change="handeLetter"
+		></Cityalphabet>	
 	</div>
 </template>
 
@@ -24,13 +31,14 @@ import Cityalphabet from './components/Alphabet';
 		data() {
 			return {
 				cities: {},
-				hotCities: []
+				hotCities: [],
+				letter: ''
 			}
 		},
 		methods: {
 			getcityinfo() {
 				axios.get('api/city.json').then((res) => {
-					console.log(res);
+					// console.log(res);
 					res = res.data;
 					if(res.ret && res.data) {
 						let data = res.data;
@@ -38,6 +46,11 @@ import Cityalphabet from './components/Alphabet';
 						this.hotCities = data.hotCities;
 					}
 				})
+			},
+			handeLetter(letter) {
+				//这样就可以父组件接收到子组件传过来的数据
+				// console.log(letter);
+				this.letter = letter;
 			}
 		},
 		mounted() {

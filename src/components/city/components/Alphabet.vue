@@ -1,16 +1,7 @@
 <template>
     <ul class="Alphabet-list">
-        <li 
-        class="item" 
-        v-for="item of letters" 
-        :key="item"
-        :ref="item"
-        @click="handeLetter"
-        @touchstart="handelTounch"
-        @touchmove="handeltouchmove"
-        @touchend="handeltouchend"
-        >
-        {{item}}
+        <li class="item" v-for="item of letters" :key="item" :ref="item" @click="handeLetter" @touchstart="handelTounch" @touchmove="handeltouchmove" @touchend="handeltouchend">
+            {{item}}
         </li>
     </ul>
 </template>
@@ -22,15 +13,21 @@ export default {
     },
     data() {
         return {
-            touchstatus: false
+            touchstatus: false,
+            statrY: 0,
+            timer: null
         }
+    },
+    // 生命周期updated，当页面加载完后就执行的
+    updated() {
+        this.statrY = this.$refs['A'][0].offsetTop;
     },
     computed: {
         letters() {
             //要定义一个数组来装着
             let letters = [];
             // 一个循环添加
-            for(let i in this.cities) {
+            for (let i in this.cities) {
                 letters.push(i)
             }
             return letters;
@@ -51,19 +48,25 @@ export default {
         handeltouchmove(e) {
             // console.log(e);
             //只有当这个为true的时候才会去触发
-            if(this.touchstatus) {
-                //首先要获取A字母到顶部的距离
-                let statusY = this.$refs['A'][0].offsetTop;
+            if (this.touchstatus) {
+                //首先要获取A字母到顶部的距离,这样做的性能比较不好，因为每次都得计算一次
+                // let statusY = this.$refs['A'][0].offsetTop;
                 // console.log(statusY);
-                // 得到的值减去 顶部标题和搜索框的高度
-                let touchY = e.touches[0].clientY - 74;
-                // console.log(touchY);
-                //设置字母的  后面的除20是每个字母的高度 , 最后向下取整
-                let index = Math.floor((touchY - statusY) / 20);
-                // console.log(index);
-                if(index >= 0 && index < this.letters.length) {
-                    this.$emit('change', this.letters[index])
+                //通过函数节流的方式去优化性能，不会每次一滑动就执行这函数
+                if (this.timer) {
+                    clearTimeout(this.timer);
                 }
+                this.timer = setTimeout(() => {
+                    // 得到的值减去 顶部标题和搜索框的高度
+                    let touchY = e.touches[0].clientY - 74;
+                    // console.log(touchY);
+                    //设置字母的  后面的除20是每个字母的高度 , 最后向下取整
+                    let index = Math.floor((touchY - this.statrY) / 20);
+                    // console.log(index);
+                    if (index >= 0 && index < this.letters.length) {
+                        this.$emit('change', this.letters[index])
+                    }
+                }, 16);
             }
         },
         handeltouchend() {

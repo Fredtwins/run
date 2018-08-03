@@ -14,7 +14,16 @@ export default {
         return {
 
         }
-    }
+    },
+    beforeCreate() {
+      // console.log('son beforeCreate')
+    },
+    created() {
+      // console.log('son created')
+    },
+    mounted() {
+      // console.log('son mounted')
+    },
 }
 </script>
 

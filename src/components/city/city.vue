@@ -1,25 +1,25 @@
 <template>
 	<div class="city">
 		<Hearder></Hearder>
-		<Search></Search>
-		<City-list 
-		:cities="cities" 
+		<Search :cities="cities"></Search>
+		<City-list
+		:cities="cities"
 		:hotcities="hotCities"
 		:letter="letter"
-		></City-list>	
-		<Cityalphabet 
+		></City-list>
+		<Cityalphabet
 		:cities="cities"
 		@change="handeLetter"
-		></Cityalphabet>	
+		></Cityalphabet>
 	</div>
 </template>
 
 <script>
-import axios from 'axios';
-import Hearder from './components/Hearder';
-import Search from './components/Search';
-import CityList from './components/city-list';
-import Cityalphabet from './components/Alphabet';
+import axios from 'axios'
+import Hearder from './components/Hearder'
+import Search from './components/Search'
+import CityList from './components/city-list'
+import Cityalphabet from './components/Alphabet'
 	export default {
 		components: {
 			Hearder,
@@ -37,24 +37,31 @@ import Cityalphabet from './components/Alphabet';
 		},
 		methods: {
 			getcityinfo() {
-				axios.get('api/city.json').then((res) => {
+				axios.get('../../../static/mock/city.json').then((res) => {
 					// console.log(res);
 					res = res.data;
 					if(res.ret && res.data) {
-						let data = res.data;
-						this.cities = data.cities;
-						this.hotCities = data.hotCities;
+						let data = res.data
+						this.cities = data.cities
+						this.hotCities = data.hotCities
 					}
 				})
 			},
 			handeLetter(letter) {
 				//这样就可以父组件接收到子组件传过来的数据
-				// console.log(letter);
-				this.letter = letter;
+				// console.log(letter)
+				this.letter = letter
 			}
 		},
+    beforeCreate() {
+      // console.log('father beforeCreate')
+    },
+    created() {
+      // console.log('father created')
+    },
 		mounted() {
-			this.getcityinfo();
+			this.getcityinfo()
+      // console.log('father mounted')
 		}
 	}
 </script>

@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<hearder :city="city"></hearder>
+		<hearder></hearder>
 		<home-swiper :List="swiperList"></home-swiper>
 		<home-icons :List="iconList"></home-icons>
 		<home-recommend :recommendList="recommendList"></home-recommend>
@@ -20,14 +20,13 @@
 		name:'home',
 		data() {
 			return {
-				city:'',
-				swiperList:[],
-				iconList:[],
-				recommendList:[],
-				weekendList:[]
+				swiperList: [],
+				iconList: [],
+				recommendList: [],
+				weekendList: []
 			}
 		},
-		components:{
+		components: {
 			Hearder,
 			HomeSwiper,
 			HomeIcons,
@@ -35,19 +34,18 @@
 			HomeWeekend
 		},
 		methods: {
-			getHomeInfo() {
+			getHomeInfo () {
 				axios.get('../../../static/mock/index.json').then(this.getHomeinfosucc)
 			},
-			getHomeinfosucc(res) {
-				console.log(res);
-				this.city = res.data.data.city
+			getHomeinfosucc (res) {
+				// console.log(res);
 				this.swiperList = res.data.data.swiperList
 				this.iconList = res.data.data.iconList
 				this.recommendList = res.data.data.recommendList
 				this.weekendList = res.data.data.weekendList
 			}
 		},
-		mounted() {
+		mounted () {
 			this.getHomeInfo();
 		}
 	}

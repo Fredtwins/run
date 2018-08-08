@@ -73,7 +73,7 @@
 			pages() {
 				const pages = [];
 				//循环当前要展示的数组
-				console.log(this.List)
+				// console.log(this.List)
 				this.List.forEach((item, index) => {
 					//定义图标展示的页码，比如前8个就在第一页显示，超过8个之后就会在第二页显示
 					const page = Math.floor(index / 8);

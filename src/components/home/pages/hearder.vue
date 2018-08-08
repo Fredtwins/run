@@ -5,7 +5,7 @@
 		</div>
 		<div class="inputcontent"><span class="iconfont">&#xe632;</span>请输入城市、景点</div>
 		<router-link to="/city">
-			<div class="right">{{this.city}}城市<span class="iconfont arrow-icon"> &#xe64a;</span></div>
+			<div class="right">{{this.$store.state.city}}<span class="iconfont arrow-icon"> &#xe64a;</span></div>
 		</router-link>
 	</div>
 </template>
@@ -13,9 +13,6 @@
 <script>
 	export default {
 		name: 'Hearder',
-		props: {
-			city:String,
-		},
 		data() {
 			return {
 
@@ -25,7 +22,7 @@
 
 		},
 		mounted() {
-
+      // console.log(this.$store.state.city)
 		}
 	}
 </script>

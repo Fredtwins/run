@@ -8,7 +8,7 @@
                 <li
                 class="search-item border-bottom"
                 v-for="item of list"
-                :key="item.index">{{item.name}}</li>
+                :key="item.index" @click="handelcityclick(item.name)">{{item.name}}</li>
                 <li class="search-item border-bottom" v-show="!list.length">没有找到匹配项</li>
             </ul>
         </div>
@@ -50,6 +50,13 @@ export default {
                 this.list = result
             }, 100)
         }
+    },
+    methods: {
+      handelcityclick (city) {
+        // vuex里面接收这个changcity的方法
+        this.$store.dispatch('changcity', city)
+        this.$router.push('/home')
+      },
     },
     mounted () {
       this.scroll = new Bscroll(this.$refs.searchs)

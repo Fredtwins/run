@@ -3,17 +3,19 @@
         <div class="search">
             <input v-model="keyword" class="search-input" type="text" placeholder="请输入城市名和拼音">
         </div>
-        <div class="search-content">
+        <div class="search-content" ref="searchs" v-show="keyword">
             <ul>
                 <li
                 class="search-item border-bottom"
                 v-for="item of list"
                 :key="item.index">{{item.name}}</li>
+                <li class="search-item border-bottom" v-show="!list.length">没有找到匹配项</li>
             </ul>
         </div>
     </div>
 </template>
 <script>
+import Bscroll from 'better-scroll'
 export default {
     name: 'Search',
     props: {
@@ -27,15 +29,20 @@ export default {
         }
     },
     watch: {
-        keyword() {
-            if(this.timer) {
+        keyword () {
+            if (this.timer) {
                 clearTimeout(this.timer)
+            }
+            // 判断input框里面是否为空，如果为空就让下面搜索出来的列表为空
+            if (!this.keyword) {
+              this.list = []
+              return
             }
             this.timer = setTimeout(() => {
                 const result = []
-                for(let i in this.cities) {
+                for (let i in this.cities) {
                     this.cities[i].forEach((value) => {
-                        if(value.spell.indexOf(this.keyword) > -1 || value.name.indexOf(this.keyword) > -1) {
+                        if (value.spell.indexOf(this.keyword) > -1 || value.name.indexOf(this.keyword) > -1) {
                             result.push(value)
                         }
                     })
@@ -43,7 +50,10 @@ export default {
                 this.list = result
             }, 100)
         }
-    }
+    },
+    mounted () {
+      this.scroll = new Bscroll(this.$refs.searchs)
+    },
 }
 </script>
 <style lang="scss" scoped>

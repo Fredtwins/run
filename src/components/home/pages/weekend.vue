@@ -23,7 +23,8 @@
 </template>
 
 <script>
-import { timeFilter, filterTimeDay } from '../../../common/js/util'
+import { timeFilter, filterTimeDay } from 'common/js/util'
+// import { timeFilter, filterTimeDay } from '../../../common/js/util'
 export default {
   name: "HomeWeekend",
   props: {

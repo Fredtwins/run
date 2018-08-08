@@ -14,12 +14,14 @@
 	import HomeIcons from './pages/icons'
 	import HomeRecommend from './pages/recommend'
 	import HomeWeekend from './pages/weekend'
-	import axios from 'axios'
+  import axios from 'axios'
+  import { mapState } from 'vuex'
 
 	export default {
 		name:'home',
 		data() {
 			return {
+        lastcity: '',
 				swiperList: [],
 				iconList: [],
 				recommendList: [],
@@ -32,10 +34,13 @@
 			HomeIcons,
 			HomeRecommend,
 			HomeWeekend
-		},
+    },
+    computed: {
+      ...mapState(['city'])
+    },
 		methods: {
 			getHomeInfo () {
-				axios.get('../../../static/mock/index.json').then(this.getHomeinfosucc)
+				axios.get('../../../static/mock/index.json?city=' + this.city).then(this.getHomeinfosucc)
 			},
 			getHomeinfosucc (res) {
 				// console.log(res);
@@ -46,8 +51,18 @@
 			}
 		},
 		mounted () {
+      this.lastcity = this.city
 			this.getHomeInfo();
-		}
+    },
+    // 这个钩子函数可以配合keep-alive来完成页面的切换并请求不同的数据
+    activated() {
+      // 判断是否新的城市和旧的城市一致
+      if (this.lastcity !== this.city) {
+        // 当城市不一致的时候就要求等于一致
+        this.lastcity = this.city
+  			this.getHomeInfo();
+      }
+    },
 	}
 </script>
 
